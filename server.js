@@ -30,6 +30,12 @@ app.use(cors({
   origin: function (origin, callback) {
     console.log('🌐 CORS Request from origin:', origin);
     
+    // TEMPORARY: Allow all origins for debugging
+    console.log('✅ Temporarily allowing all origins for debugging');
+    callback(null, true);
+    
+    // Original logic (commented out for debugging)
+    /*
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
@@ -41,6 +47,7 @@ app.use(cors({
       console.log('Allowed origins:', allowedOrigins);
       callback(new Error('Not allowed by CORS'));
     }
+    */
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
