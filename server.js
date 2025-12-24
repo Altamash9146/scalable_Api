@@ -19,6 +19,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001', 
   'https://scalable-api.onrender.com',
+  'https://scalable-api-backend.onrender.com',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -33,6 +34,12 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
+    // In development, be more permissive with localhost
+    if (process.env.NODE_ENV !== 'production' && origin && origin.includes('localhost')) {
+      console.log('✅ Development localhost origin allowed:', origin);
+      return callback(null, true);
+    }
+    
     if (allowedOrigins.indexOf(origin) !== -1) {
       console.log('✅ Origin allowed:', origin);
       callback(null, true);
@@ -44,7 +51,8 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  exposedHeaders: ['Authorization'],
   optionsSuccessStatus: 200
 }));
 
