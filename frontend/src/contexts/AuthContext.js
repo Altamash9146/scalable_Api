@@ -12,15 +12,15 @@ export const useAuth = () => {
   return context;
 };
 
-// Configure axios defaults
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1';
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Set up axios interceptor for token
+  // Set up axios defaults and interceptor for token
   useEffect(() => {
+    // Configure axios defaults
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1';
+    axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
