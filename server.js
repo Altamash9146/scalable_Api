@@ -20,6 +20,7 @@ const allowedOrigins = [
   'http://localhost:3001', 
   'https://scalable-api.onrender.com',
   'https://scalable-api-backend.onrender.com',
+  'https://scalable-api-backend-e9ih.onrender.com',
   'https://scalable-api.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
