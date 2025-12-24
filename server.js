@@ -27,8 +27,9 @@ const allowedOrigins = [
 console.log('🔍 CORS Debug Info:');
 console.log('Allowed Origins:', allowedOrigins);
 console.log('FRONTEND_URL env var:', process.env.FRONTEND_URL);
+console.log('NODE_ENV:', process.env.NODE_ENV);
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     console.log('🌐 CORS Request from origin:', origin);
     
@@ -55,25 +56,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   exposedHeaders: ['Authorization'],
   optionsSuccessStatus: 200
-}));
-
-// Handle preflight requests
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Authorization'],
 };
-
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
