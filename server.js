@@ -30,12 +30,6 @@ app.use(cors({
   origin: function (origin, callback) {
     console.log('🌐 CORS Request from origin:', origin);
     
-    // TEMPORARY: Allow all origins for debugging
-    console.log('✅ Temporarily allowing all origins for debugging');
-    callback(null, true);
-    
-    // Original logic (commented out for debugging)
-  
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
@@ -86,9 +80,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // API Routes
-app.use('/auth', authRoutes);
-app.use('/tasks', taskRoutes);
-app.use('/users', userRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/tasks', taskRoutes);
+app.use('/api/v1/users', userRoutes);
 
 // Setup Swagger documentation
 setupSwagger(app);
