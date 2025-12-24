@@ -4,7 +4,7 @@
   "installCommand": "npm install --prefix frontend",
   "framework": "create-react-app",
   "env": {
-    "REACT_APP_API_URL": "@react_app_api_url"
+    "REACT_APP_API_URL": "https://scalable-api-backend.onrender.com/api/v1"
   },
   "rewrites": [
     {
